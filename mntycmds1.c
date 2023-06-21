@@ -15,11 +15,20 @@ void pint(stack_t **stck , unsigned int ln_numbr)
 }
 
 void pop(stack_t **stck , unsigned int ln_numbr)
-{
+{dlistint_t *current = NULL;
 	(void) stck;
 	(void) ln_numbr;	
-	printf("pop on line: %u\n", ln_numbr);
-	/* code for pop mnty opcode */
+
+	if  (globlData.head == NULL)
+	{   
+		fprintf(stderr, "L%u: can't pop an empty stack\n", ln_numbr);
+		free_dlistint(globlData.head);
+		exit(EXIT_FAILURE);    
+	};  
+	current = globlData.head;/*list have nodes and *head is the first node*/
+	globlData.head = globlData.head->next;/*move *header to next node*/
+	globlData.head->prev = NULL;
+	free(current);
 }
 
 void swap(stack_t **stck , unsigned int ln_numbr)
