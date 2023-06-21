@@ -104,7 +104,7 @@ void read_file(const char *inpt_file_name)
 			excut_mntycmd(args[0], &stck, ln_numbr);
 		}
 	}
-	/*free_dlistint(globlData.head);*/
+	free_dlistint(globlData.head);
 	fclose(myfile);
 }
 int main(int argc, char *argv[])
