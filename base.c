@@ -1,5 +1,4 @@
 #include "main.h"
-
 void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 {int i = 0;
 	instruction_t mntysyntax[] = {
@@ -28,34 +27,33 @@ void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 
 void push(stack_t **stck, unsigned int ln_numbr)
 {/*printf("push on line: %u\n", ln_numbr);*/
-	int pshvalue, idx;
-	int isdigit = 1;
+	int pshvalue;
+	int idx = 0;
+	/*int isdigit = 1;*/
 	char *psharg;
 
 	printf("get new cmd");
-	if (globlData.crntcmdarg == NULL)
+	if (globlData.crntcmdarg[1] == NULL || globlData.argsc > 2)
 	{
 		perrpsh(ln_numbr);
 	}
-	psharg = globlData.crntcmdarg;
+	psharg = globlData.crntcmdarg[1];
 	/* Check if the argument is a valid integer */
 	for (; psharg[idx] != '\0'; idx++)
 	{
 		if (psharg[0] == '-')
 			continue;
 		if ((psharg[idx] < '0' || psharg[idx] > '9') && psharg[idx] != ' ')
-		{isdigit = 0;
+		{/*isdigit = 0;*/
 			printf("(%c) not an integer ascii = (%d)\n", psharg[idx], psharg[idx]);
 			perrpsh(ln_numbr);
 		}
 	}
-	if (isdigit)
-	{pshvalue = my_atoi(psharg);
-		if (globlData.type == STACK)
-			globlData.head = add_dnodeint(&globlData.head, pshvalue);
-		if (globlData.type == QUEUE)
-			globlData.tail = add_dnodeint_end(&globlData.head, pshvalue);
-	}
+	pshvalue = my_atoi(psharg);
+	if (globlData.type == STACK)
+		globlData.head = add_dnodeint(&globlData.head, pshvalue);
+	else if (globlData.type == QUEUE)
+		globlData.tail = add_dnodeint_end(&globlData.head, pshvalue);
 }
 
 void perrpsh(unsigned int ln_numbr)
@@ -73,8 +71,8 @@ void pall(stack_t **stck, unsigned int ln_numbr)
 void read_file(const char *inpt_file_name)
 {
 	FILE *myfile = fopen(inpt_file_name, "r");
-	char tmpbuffer[BUF_SIZE], *mntycmd;
-	unsigned int ln_numbr = 1;
+	char tmpbuffer[BUF_SIZE], *mntyln_tokn,*cmdargmnt, *args[BUF_SIZE];
+	unsigned int ln_numbr = 1, argc = 0;
 	stack_t *stck = NULL;
 
 	if (myfile == NULL)
@@ -85,19 +83,24 @@ void read_file(const char *inpt_file_name)
 	globlData.head = NULL;
 	globlData.tail = NULL;
 	for (ln_numbr = 1; fgets(tmpbuffer, BUF_SIZE, myfile) != NULL; ln_numbr++)
-	{mntycmd = strtok(tmpbuffer, " \t\n");
-		if (mntycmd != NULL && mntycmd[0] != '#')
-		{globlData.crntcmd = mntycmd;
-			globlData.crntcmdarg = strtok(NULL, " \t\n");
+	{mntyln_tokn = strtok(tmpbuffer, " \t\n");
+		        while (mntyln_tokn != NULL) {
+            args[argc++] = mntyln_tokn;
+            mntyln_tokn= strtok(NULL, " \t\n");
+        }
+
+		if (args[0] != NULL && args[0][0] != '#')
+		{globlData.crntcmd = args[0];
+			globlData.crntcmdarg = args;
+			globlData.argsc = argc;
 			printf("globlData.crntcmd : %s\n", globlData.crntcmd);
-			printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg);
-			excut_mntycmd(mntycmd, &stck, ln_numbr);
+			printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg[1]);
+			excut_mntycmd(args[0], &stck, ln_numbr);
 		}
 	}
 	/*free_dlistint(globlData.head);*/
 	fclose(myfile);
 }
-
 int main(int argc, char *argv[])
 {
 	if (argc != 2)

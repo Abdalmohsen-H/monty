@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <ctype.h>
 /*-macro-*/
 #define BUF_SIZE 256
 /*-struct given-*/
@@ -35,7 +35,8 @@ struct globData
 	stack_t *head;
 	stack_t *tail;
 	char *crntcmd;
-	char *crntcmdarg;
+	char **crntcmdarg;
+	int argsc;
 };
 
 /*--global variable--*/
@@ -53,6 +54,7 @@ void nop(stack_t **stck, unsigned int ln_numbr);
 /*xtra funcs*/
 void perrpsh(unsigned int ln_numbr);
 int my_atoi(char *strn);
+char *nul_trm_arg(char *cmdargmnt);
 /*dlist handling funcs*/
 typedef stack_t dlistint_t;
 size_t print_dlistint(const dlistint_t *h);
