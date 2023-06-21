@@ -36,7 +36,7 @@ void push(stack_t **stck, unsigned int ln_numbr)
 	/*printf("globlData.crntcmdarg[1] = push int arg: %s\n", globlData.crntcmdarg[1]);*/
 	/*printf("globlData.argsc: %d\n", globlData.argsc);*/
 
-	if (globlData.crntcmdarg[1] == NULL || globlData.argsc != 2)
+	if (globlData.crntcmdarg[1] == NULL)
 	{
 		perrpsh(ln_numbr);
 	}
@@ -76,7 +76,7 @@ void read_file(const char *inpt_file_name)
 {
 	FILE *myfile = fopen(inpt_file_name, "r");
 	char tmpbuffer[BUF_SIZE], *mntyln_tokn, *args[BUF_SIZE];
-	unsigned int ln_numbr = 1, argc = 0;
+	unsigned int ln_numbr = 1, argc = 0, i = 0;
 	stack_t *stck = NULL;
 
 	if (myfile == NULL)
@@ -89,6 +89,10 @@ void read_file(const char *inpt_file_name)
 	for (ln_numbr = 1; fgets(tmpbuffer, BUF_SIZE, myfile) != NULL; ln_numbr++)
 	{mntyln_tokn = strtok(tmpbuffer, " \t\n");
 		argc = 0;
+		for (i = 0; i < BUF_SIZE; i++)
+		{
+			args[i] = NULL;
+		}
 		while (mntyln_tokn != NULL)
 		{
 			args[argc++] = mntyln_tokn;
