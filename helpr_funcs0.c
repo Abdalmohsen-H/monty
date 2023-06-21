@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 /**
  * my_atoi - for exit status extract numbers

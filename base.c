@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 {int i = 0;
 	instruction_t mntysyntax[] = {
@@ -58,13 +58,6 @@ void push(stack_t **stck, unsigned int ln_numbr)
 		globlData.tail = add_dnodeint_end(&globlData.head, pshvalue);
 }
 
-void perrpsh(unsigned int ln_numbr)
-{
-	fprintf(stderr, "L%u: usage: push integer\n", ln_numbr);
-	/*free list first*/
-	free_dlistint(globlData.head);
-	exit(EXIT_FAILURE);	
-}
 void pall(stack_t **stck, unsigned int ln_numbr)
 {/*printf("pall on line: %u\n", ln_numbr);*/
 	(void) stck;

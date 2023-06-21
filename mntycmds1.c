@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 void pint(stack_t **stck , unsigned int ln_numbr)
 {
