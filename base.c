@@ -29,11 +29,14 @@ void push(stack_t **stck, unsigned int ln_numbr)
 {/*printf("push on line: %u\n", ln_numbr);*/
 	int pshvalue;
 	int idx = 0;
-	/*int isdigit = 1;*/
 	char *psharg;
+	(void) stck;
+	(void) ln_numbr;
+	/*printf("get new cmd\n");*/
+	/*printf("globlData.crntcmdarg[1] = push int arg: %s\n", globlData.crntcmdarg[1]);*/
+	/*printf("globlData.argsc: %d\n", globlData.argsc);*/
 
-	printf("get new cmd");
-	if (globlData.crntcmdarg[1] == NULL || globlData.argsc > 2)
+	if (globlData.crntcmdarg[1] == NULL || globlData.argsc != 2)
 	{
 		perrpsh(ln_numbr);
 	}
@@ -44,8 +47,7 @@ void push(stack_t **stck, unsigned int ln_numbr)
 		if (psharg[0] == '-')
 			continue;
 		if ((psharg[idx] < '0' || psharg[idx] > '9') && psharg[idx] != ' ')
-		{/*isdigit = 0;*/
-			printf("(%c) not an integer ascii = (%d)\n", psharg[idx], psharg[idx]);
+		{/*printf("(%c) not an integer ascii = (%d)\n", psharg[idx], psharg[idx]);*/
 			perrpsh(ln_numbr);
 		}
 	}
@@ -65,13 +67,15 @@ void perrpsh(unsigned int ln_numbr)
 }
 void pall(stack_t **stck, unsigned int ln_numbr)
 {/*printf("pall on line: %u\n", ln_numbr);*/
+	(void) stck;
+	(void) ln_numbr;
 	print_dlistint(globlData.head);
 }
 
 void read_file(const char *inpt_file_name)
 {
 	FILE *myfile = fopen(inpt_file_name, "r");
-	char tmpbuffer[BUF_SIZE], *mntyln_tokn,*cmdargmnt, *args[BUF_SIZE];
+	char tmpbuffer[BUF_SIZE], *mntyln_tokn, *args[BUF_SIZE];
 	unsigned int ln_numbr = 1, argc = 0;
 	stack_t *stck = NULL;
 
@@ -84,17 +88,19 @@ void read_file(const char *inpt_file_name)
 	globlData.tail = NULL;
 	for (ln_numbr = 1; fgets(tmpbuffer, BUF_SIZE, myfile) != NULL; ln_numbr++)
 	{mntyln_tokn = strtok(tmpbuffer, " \t\n");
-		        while (mntyln_tokn != NULL) {
-            args[argc++] = mntyln_tokn;
-            mntyln_tokn= strtok(NULL, " \t\n");
-        }
+		argc = 0;
+		while (mntyln_tokn != NULL)
+		{
+			args[argc++] = mntyln_tokn;
+			mntyln_tokn= strtok(NULL, " \t\n");
+		}
 
 		if (args[0] != NULL && args[0][0] != '#')
 		{globlData.crntcmd = args[0];
 			globlData.crntcmdarg = args;
 			globlData.argsc = argc;
-			printf("globlData.crntcmd : %s\n", globlData.crntcmd);
-			printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg[1]);
+			/*printf("globlData.crntcmd : %s\n", globlData.crntcmd);*/
+			/*printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg[1]);*/
 			excut_mntycmd(args[0], &stck, ln_numbr);
 		}
 	}
