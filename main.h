@@ -34,7 +34,6 @@ struct globData
 	enum DataTyp type;
 	stack_t *head;
 	stack_t *tail;
-	char *fileline;
 	char *crntcmd;
 	char *crntcmdarg;
 };

@@ -85,12 +85,10 @@ void read_file(const char *inpt_file_name)
 	globlData.head = NULL;
 	globlData.tail = NULL;
 	for (ln_numbr = 1; fgets(tmpbuffer, BUF_SIZE, myfile) != NULL; ln_numbr++)
-	{globlData.fileline = tmpbuffer;
-		mntycmd = strtok(tmpbuffer, " \t\n");
+	{mntycmd = strtok(tmpbuffer, " \t\n");
 		if (mntycmd != NULL && mntycmd[0] != '#')
 		{globlData.crntcmd = mntycmd;
 			globlData.crntcmdarg = strtok(NULL, " \t\n");
-			printf("globlData.fileline : %s\n", globlData.fileline);
 			printf("globlData.crntcmd : %s\n", globlData.crntcmd);
 			printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg);
 			excut_mntycmd(mntycmd, &stck, ln_numbr);
