@@ -37,6 +37,7 @@ struct globData
 	char *crntcmd;
 	char **crntcmdarg;
 	int argsc;
+	FILE *zfile;
 };
 
 /*--global variable--*/

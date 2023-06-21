@@ -22,6 +22,7 @@ void pop(stack_t **stck , unsigned int ln_numbr)
 	if  (globlData.head == NULL)
 	{   
 		fprintf(stderr, "L%u: can't pop an empty stack\n", ln_numbr);
+		fclose(globlData.zfile);
 		free_dlistint(globlData.head);
 		exit(EXIT_FAILURE);    
 	};  

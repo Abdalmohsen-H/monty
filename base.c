@@ -79,6 +79,7 @@ void read_file(const char *inpt_file_name)
 	globlData.type = STACK;/*intialize global struct variable*/
 	globlData.head = NULL;
 	globlData.tail = NULL;
+	globlData.zfile = myfile;
 	for (ln_numbr = 1; fgets(tmpbuffer, BUF_SIZE, myfile) != NULL; ln_numbr++)
 	{mntyln_tokn = strtok(tmpbuffer, " \t\n");
 		argc = 0;
