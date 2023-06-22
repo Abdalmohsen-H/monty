@@ -1,6 +1,13 @@
 #include "monty.h"
 
-void pint(stack_t **stck , unsigned int ln_numbr)
+/**
+ * pint - prints the top of a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
+void pint(stack_t **stck, unsigned int ln_numbr)
 {stack_t *popnod = get_dnodeint_at_index(globlData.head, 0);
 	(void) stck;
 	/*printf("pint on line: %u\n", ln_numbr);*/
@@ -14,11 +21,18 @@ void pint(stack_t **stck , unsigned int ln_numbr)
 	fprintf(stdout, "%u\n", popnod->n);
 }
 
-void pop(stack_t **stck , unsigned int ln_numbr)
+/**
+ * pop - removes a node from the top of a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
+void pop(stack_t **stck, unsigned int ln_numbr)
 {
 	dlistint_t *current = NULL;
 	(void) stck;
-	(void) ln_numbr;	
+	(void) ln_numbr;
 
 	if  (globlData.head == NULL)
 	{
@@ -26,14 +40,21 @@ void pop(stack_t **stck , unsigned int ln_numbr)
 		fclose(globlData.zfile);
 		free_dlistint(globlData.head);
 		exit(EXIT_FAILURE);
-	};  
+	}
 	current = globlData.head;/*list have nodes and *head is the first node*/
 	globlData.head = globlData.head->next;/*move *header to next node*/
 	globlData.head->prev = NULL;
 	free(current);
 }
 
-void swap(stack_t **stck , unsigned int ln_numbr)
+/**
+ * swap - swaps the top two nodes of a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
+void swap(stack_t **stck, unsigned int ln_numbr)
 {
 	int temp_1, temp_2;
 	(void) stck;
@@ -65,6 +86,13 @@ void swap(stack_t **stck , unsigned int ln_numbr)
 
 }
 
+/**
+ * add - adds the values present in the top two nodes of a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
 void add(stack_t **stck, unsigned int ln_numbr)
 {
 	int a, b;
@@ -78,12 +106,23 @@ void add(stack_t **stck, unsigned int ln_numbr)
 		free_dlistint(globlData.head);
 		exit(EXIT_FAILURE);
 	};
-	a = get_dnodeint_at_index(globlData.head, 0)->n;/*sets a to the value of the top element*/
-	b = get_dnodeint_at_index(globlData.head, 1)->n;/*sets b to the value of the second top element*/
-	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes the first top element*/
-	globlData.head->n = a + b;/*replaces 2nd tp[ element value with sum of a & b*/
+	/*sets a to the value of the top element*/
+	a = get_dnodeint_at_index(globlData.head, 0)->n;
+	/*sets b to the value of the second top element*/
+	b = get_dnodeint_at_index(globlData.head, 1)->n;
+	/*deletes the first top element*/
+	delete_dnodeint_at_index(&(globlData.head), 0);
+	/*replaces 2nd tp[ element value with sum of a & b*/
+	globlData.head->n = a + b;
 }
 
+/**
+ * nop - does nothing
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
 void nop(stack_t **stck, unsigned int ln_numbr)
 {
 	(void) stck;
