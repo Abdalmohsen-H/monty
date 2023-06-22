@@ -8,7 +8,16 @@
 #include <ctype.h>
 /*-macro-*/
 #define BUF_SIZE 256
-/*-struct given-*/
+
+/**
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
+ *
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
+ */
 typedef struct stack_s
 {
 	int n;
@@ -16,19 +25,45 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
+/**
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO
+ */
 typedef struct instruction_s
 {
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/*-used for global variable-*/
+/**
+ * enum DataTyp - used for global variable
+ * @STACK: ...
+ * @QUEUE: ...
+ *
+ * Description: determines whether the data type passed is a stack or a queue
+ */
 enum DataTyp
 {
 	STACK,
 	QUEUE
 };
 
+/**
+ * struct globData - opcode and its function
+ * @type: determines whether the data type is a stack or a queue
+ * @head: pointer to front of the data type
+ * @tail: pointer to rear of the data type
+ * @crntcmd: current command read
+ * @crntcmdarg: pointer to current command read
+ * @argsc: ...
+ * @zfile: file being read
+ *
+ * Description: variables to access global data
+ */
 struct globData
 {
 	enum DataTyp type;
