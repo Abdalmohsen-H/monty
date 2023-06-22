@@ -7,6 +7,7 @@
 size_t dlistint_len(const dlistint_t *dlsthead)
 {
 	size_t num_of_nodes = 0;
+
 	while (dlsthead)
 	{
 		num_of_nodes++;
@@ -18,7 +19,8 @@ size_t dlistint_len(const dlistint_t *dlsthead)
  * delete_dnodeint_at_index - find if index exist on
  * doubly linked list and delete node
  * @index: input index
- * @head: address of pointer to head node
+ * @dlsthead: pointer to the front of the list
+ *
  * Return:1 if deleted new node
  * or -1 if deletion failed
  */
