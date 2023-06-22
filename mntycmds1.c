@@ -15,16 +15,17 @@ void pint(stack_t **stck , unsigned int ln_numbr)
 }
 
 void pop(stack_t **stck , unsigned int ln_numbr)
-{dlistint_t *current = NULL;
+{
+	dlistint_t *current = NULL;
 	(void) stck;
 	(void) ln_numbr;	
 
 	if  (globlData.head == NULL)
-	{   
+	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", ln_numbr);
 		fclose(globlData.zfile);
 		free_dlistint(globlData.head);
-		exit(EXIT_FAILURE);    
+		exit(EXIT_FAILURE);
 	};  
 	current = globlData.head;/*list have nodes and *head is the first node*/
 	globlData.head = globlData.head->next;/*move *header to next node*/
@@ -34,16 +35,42 @@ void pop(stack_t **stck , unsigned int ln_numbr)
 
 void swap(stack_t **stck , unsigned int ln_numbr)
 {
+	int temp_1, temp_2;
 	(void) stck;
 	(void) ln_numbr;
 	/* code for swap mnty opcode */
+	if  (dlistint_len(globlData.head) < 2)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", ln_numbr);
+		fclose(globlData.zfile);
+		free_dlistint(globlData.head);
+		exit(EXIT_FAILURE);    
+	};
+	temp_1 = globlData.head->n;/*sets temp_1 to the 1st node's n value*/
+	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 1st node and sets the head to the 2nd node*/
+	temp_2 = globlData.head->n;/*sets temp_2 to the 2nd node's n value*/
+	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 2nd node & sets head to next node if exists*/
+	globlData.head = add_dnodeint(&(globlData.head), temp_1);
+	globlData.head = add_dnodeint(&(globlData.head), temp_2);
 }
 
 void add(stack_t **stck, unsigned int ln_numbr)
 {
+	int a, b;
 	(void) stck;
 	(void) ln_numbr;
 	/* code for add mnty opcode */
+	if  (dlistint_len(globlData.head) < 2)
+	{
+		fprintf(stderr, "L%u: can't add, stack too short\n", ln_numbr);
+		fclose(globlData.zfile);
+		free_dlistint(globlData.head);
+		exit(EXIT_FAILURE);
+	};
+	a = get_dnodeint_at_index(globlData.head, 0)->n;/*sets a to the value of the top element*/
+	b = get_dnodeint_at_index(globlData.head, 1)->n;/*sets b to the value of the second top element*/
+	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes the first top element*/
+	globlData.head->n = a + b;/*replaces 2nd tp[ element value with sum of a & b*/
 }
 
 void nop(stack_t **stck, unsigned int ln_numbr)
