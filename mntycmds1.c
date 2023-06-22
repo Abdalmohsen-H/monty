@@ -43,7 +43,8 @@ void pop(stack_t **stck, unsigned int ln_numbr)
 	}
 	current = globlData.head;/*list have nodes and *head is the first node*/
 	globlData.head = globlData.head->next;/*move *header to next node*/
-	globlData.head->prev = NULL;
+	if (globlData.head)/*if head is not null after removing old head*/
+		globlData.head->prev = NULL;
 	free(current);
 }
 
