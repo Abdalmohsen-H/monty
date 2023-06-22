@@ -12,11 +12,7 @@ void pstr(stack_t **stck, unsigned int ln_numbr)
 	(void) ln_numbr;
 	/* code for mnty opcode */
 	if  (globlData.head == NULL)
-	{
-		fprintf(stderr, "L%u: can't pstr, stack empty\n", ln_numbr);
-		fclose(globlData.zfile);
-		exit(EXIT_FAILURE);
-	}
+		fprintf(stdout, "\n");
 	while (globlData.head != NULL)
 	{
 		val = globlData.head->n;
