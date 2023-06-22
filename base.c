@@ -1,4 +1,13 @@
 #include "monty.h"
+/**
+ * excut_mntycmd - matches the command with the required function
+ * @opcode: monty code read from file
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
+
 void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 {int i = 0;
 	instruction_t mntysyntax[] = {
@@ -25,15 +34,28 @@ void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * push - adds a value to the top of a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
 void push(stack_t **stck, unsigned int ln_numbr)
-{/*printf("push on line: %u\n", ln_numbr);*/
+{
+	/*printf("push on line: %u\n", ln_numbr);*/
 	int pshvalue;
 	int idx = 0;
 	char *psharg;
 	(void) stck;
 	(void) ln_numbr;
 	/*printf("get new cmd\n");*/
-	/*printf("globlData.crntcmdarg[1] = push int arg: %s\n", globlData.crntcmdarg[1]);*/
+
+	/**
+	* printf("globlData.crntcmdarg[1] = push int arg: %s\n",
+	* globlData.crntcmdarg[1]);
+	*/
+
 	/*printf("globlData.argsc: %d\n", globlData.argsc);*/
 
 	if (globlData.crntcmdarg[1] == NULL)
@@ -47,7 +69,11 @@ void push(stack_t **stck, unsigned int ln_numbr)
 		if (psharg[0] == '-')
 			continue;
 		if ((psharg[idx] < '0' || psharg[idx] > '9') && psharg[idx] != ' ')
-		{/*printf("(%c) not an integer ascii = (%d)\n", psharg[idx], psharg[idx]);*/
+		{
+			/**
+			 * printf("(%c) not an integer ascii = (%d)\n",
+			 * psharg[idx], psharg[idx]);
+			 */
 			perrpsh(ln_numbr);
 		}
 	}
@@ -58,13 +84,27 @@ void push(stack_t **stck, unsigned int ln_numbr)
 		globlData.tail = add_dnodeint_end(&globlData.head, pshvalue);
 }
 
+/**
+ * pall - prints all the values in a stack
+ * @stck: ...
+ * @ln_numbr: line number where the command is present
+ *
+ * Return: void
+ */
 void pall(stack_t **stck, unsigned int ln_numbr)
-{/*printf("pall on line: %u\n", ln_numbr);*/
+{
+	/*printf("pall on line: %u\n", ln_numbr);*/
 	(void) stck;
 	(void) ln_numbr;
 	print_dlistint(globlData.head);
 }
 
+/**
+ * read_file - reads and interperts a monty file
+ * @inpt_file_name: file that contains monty code
+ *
+ * Return: void
+ */
 void read_file(const char *inpt_file_name)
 {
 	FILE *myfile = fopen(inpt_file_name, "r");
@@ -90,7 +130,7 @@ void read_file(const char *inpt_file_name)
 		while (mntyln_tokn != NULL)
 		{
 			args[argc++] = mntyln_tokn;
-			mntyln_tokn= strtok(NULL, " \t\n");
+			mntyln_tokn = strtok(NULL, " \t\n");
 		}
 
 		if (args[0] != NULL && args[0][0] != '#')
@@ -105,6 +145,14 @@ void read_file(const char *inpt_file_name)
 	free_dlistint(globlData.head);
 	fclose(myfile);
 }
+
+/**
+ * main - entry point
+ * @argc: number of arguments passed
+ * @argv: pointer to access passed arguments
+ *
+ * Return: always 0
+ */
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
