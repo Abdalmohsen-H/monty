@@ -39,19 +39,30 @@ void swap(stack_t **stck , unsigned int ln_numbr)
 	(void) stck;
 	(void) ln_numbr;
 	/* code for swap mnty opcode */
-	if  (dlistint_len(globlData.head) < 2)
+		if  (dlistint_len(globlData.head) < 2)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", ln_numbr);
 		fclose(globlData.zfile);
 		free_dlistint(globlData.head);
-		exit(EXIT_FAILURE);    
-	};
+		exit(EXIT_FAILURE);
+	}
+	else if (dlistint_len(globlData.head) == 2)
+	{temp_1 = globlData.head->n;
+	 globlData.head->n = globlData.head->next->n;
+	globlData.head->next->n = temp_1;
+	}
+	else
+	{
 	temp_1 = globlData.head->n;/*sets temp_1 to the 1st node's n value*/
-	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 1st node and sets the head to the 2nd node*/
+	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 1st node and*/
+	/* sets the head to the 2nd node*/
 	temp_2 = globlData.head->n;/*sets temp_2 to the 2nd node's n value*/
-	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 2nd node & sets head to next node if exists*/
+	delete_dnodeint_at_index(&(globlData.head), 0);/*deletes 2nd node & sets*/
+	/* head to next node if exists*/
 	globlData.head = add_dnodeint(&(globlData.head), temp_1);
 	globlData.head = add_dnodeint(&(globlData.head), temp_2);
+	}
+
 }
 
 void add(stack_t **stck, unsigned int ln_numbr)
