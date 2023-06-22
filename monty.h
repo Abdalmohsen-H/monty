@@ -105,4 +105,13 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index);
 /*recently added*/
 size_t dlistint_len(const dlistint_t *dlsthead);
 int delete_dnodeint_at_index(dlistint_t **dlsthead, unsigned int index);
+/*advanced tasks*/
+void sub(stack_t **stck, unsigned int ln_numbr);
+void mul(stack_t **stck, unsigned int ln_numbr);
+void divs(stack_t **stck, unsigned int ln_numbr);
+void mod(stack_t **stck, unsigned int ln_numbr);
+void pchar(stack_t **stck, unsigned int ln_numbr);
+void pstr(stack_t **stck, unsigned int ln_numbr);
+void rotl(stack_t **stck, unsigned int ln_numbr);
+void rotr(stack_t **stck, unsigned int ln_numbr);
 #endif

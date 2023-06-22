@@ -18,6 +18,14 @@ void excut_mntycmd(char *opcode, stack_t **stck, unsigned int ln_numbr)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
+		{"mul", mul},
+		{"div", divs},
+		{"mod", mod},
+		{"sub", sub},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL}
 	};
 
@@ -52,9 +60,9 @@ void push(stack_t **stck, unsigned int ln_numbr)
 	/*printf("get new cmd\n");*/
 
 	/**
-	* printf("globlData.crntcmdarg[1] = push int arg: %s\n",
-	* globlData.crntcmdarg[1]);
-	*/
+	 * printf("globlData.crntcmdarg[1] = push int arg: %s\n",
+	 * globlData.crntcmdarg[1]);
+	 */
 
 	/*printf("globlData.argsc: %d\n", globlData.argsc);*/
 
