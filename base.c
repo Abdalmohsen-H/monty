@@ -57,14 +57,6 @@ void push(stack_t **stck, unsigned int ln_numbr)
 	char *psharg;
 	(void) stck;
 	(void) ln_numbr;
-	/*printf("get new cmd\n");*/
-
-	/**
-	 * printf("globlData.crntcmdarg[1] = push int arg: %s\n",
-	 * globlData.crntcmdarg[1]);
-	 */
-
-	/*printf("globlData.argsc: %d\n", globlData.argsc);*/
 
 	if (globlData.crntcmdarg[1] == NULL)
 	{
@@ -78,10 +70,6 @@ void push(stack_t **stck, unsigned int ln_numbr)
 			continue;
 		if ((psharg[idx] < '0' || psharg[idx] > '9') && psharg[idx] != ' ')
 		{
-			/**
-			 * printf("(%c) not an integer ascii = (%d)\n",
-			 * psharg[idx], psharg[idx]);
-			 */
 			perrpsh(ln_numbr);
 		}
 	}
@@ -145,8 +133,6 @@ void read_file(const char *inpt_file_name)
 		{globlData.crntcmd = args[0];
 			globlData.crntcmdarg = args;
 			globlData.argsc = argc;
-			/*printf("globlData.crntcmd : %s\n", globlData.crntcmd);*/
-			/*printf("globlData.crntcmdarg : %s\n", globlData.crntcmdarg[1]);*/
 			excut_mntycmd(args[0], &stck, ln_numbr);
 		}
 	}
