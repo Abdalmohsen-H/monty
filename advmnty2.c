@@ -72,7 +72,7 @@ void rotr(stack_t **stck, unsigned int ln_numbr)
 			headtmp = headtmp->next;
 		}
 		val = headtmp->n;
-		delete_dnodeint_at_index(&(globlData.head), cntr);
+		delete_dnodeint_at_index(&(globlData.head), cntr - 1);
 		add_dnodeint(&(globlData.head), val);
 			headtmp = NULL;
 	}
